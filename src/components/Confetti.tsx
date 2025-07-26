@@ -12,9 +12,16 @@ function randomBetween(a: number, b: number) {
   return Math.random() * (b - a) + a;
 }
 
+
 const Confetti: React.FC<ConfettiProps> = ({ trigger, onComplete }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
+
+  // Helper to detect mobile devices
+  function isMobile() {
+    if (typeof navigator === 'undefined') return false;
+    return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|BlackBerry/i.test(navigator.userAgent);
+  }
 
   useEffect(() => {
     if (!trigger) return;
@@ -27,7 +34,12 @@ const Confetti: React.FC<ConfettiProps> = ({ trigger, onComplete }) => {
     canvas.height = canvas.offsetHeight * dpr;
     ctx.scale(dpr, dpr);
 
-    const confetti = Array.from({ length: 32 }).map(() => ({
+    // Reduce confetti on mobile
+    const isMobileDevice = isMobile();
+    const PARTICLE_COUNT = isMobileDevice ? 10 : 32;
+    const FRAME_COUNT = isMobileDevice ? 35 : 70;
+
+    const confetti = Array.from({ length: PARTICLE_COUNT }).map(() => ({
       x: canvas.width / dpr / 2,
       y: canvas.height / dpr / 2,
       r: randomBetween(4, 8),
@@ -54,7 +66,7 @@ const Confetti: React.FC<ConfettiProps> = ({ trigger, onComplete }) => {
         ctx.fill();
       });
       frame++;
-      if (frame < 70) {
+      if (frame < FRAME_COUNT) {
         animationRef.current = requestAnimationFrame(draw);
       } else {
         if (!canvas || !ctx) return;
