@@ -40,9 +40,9 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
   };
 
   const handleFieldBlur = (idx: number, key: string) => {
+    // Always reveal the next field on blur if not already visible
     if (
       idx === visibleCount - 1 &&
-      values[key]?.trim() &&
       visibleCount < fields.length
     ) {
       setVisibleCount(visibleCount + 1);
@@ -51,11 +51,7 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (fields.some(f => !values[f.key]?.trim())) {
-      setShake(true);
-      setTimeout(() => setShake(false), 400);
-      return;
-    }
+    // No required fields; just build prompt from filled fields
     const prompt = buildPrompt(tpl, values);
     onPromptReady(prompt);
   };
@@ -107,10 +103,9 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
             className="w-full border border-slate-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-warm-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition"
             value={values[f.key] || ''}
             onChange={e => handleChange(f.key, e.target.value)}
-            onBlur={() => handleFieldBlur(i, f.key)}
             aria-label={f.label}
-            required={i === fields.length - 1}
             style={{ minHeight: 44 }}
+            onBlur={() => handleFieldBlur(i, f.key)}
           />
         </div>
       ))}
@@ -151,13 +146,14 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
 }
 
 function buildPrompt(tpl: FrameworkTemplate, values: Record<string, string>, highlight = false) {
-  // Compose the prompt in a readable format, highlight filled values
+  // Only include fields that are filled
   return tpl.fields
+    .filter(f => (values[f.key] && values[f.key].trim() !== ''))
     .map(f => {
       const val = values[f.key] || '';
       if (highlight && val)
-        return `${f.label}: ` + `<span class=\"italic text-sky-700 dark:text-sky-300\">${val}</span>`;
+        return `${f.label}: <span class=\"italic text-sky-700 dark:text-sky-300\">${val}</span>`;
       return `${f.label}: ${val}`;
     })
-    .join('\\n');
+    .join('  ');
 }
