@@ -30,7 +30,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-warm-50 dark:bg-slate-900 flex flex-col items-center justify-center px-2 py-8">
+    <div className="min-h-screen bg-material-surfaceLight dark:bg-material-surfaceDark text-material-textLight dark:text-material-textDark font-roboto flex flex-col items-center justify-center py-8 px-2 sm:px-0">
       {/* Plausible analytics script */}
       <script
         defer
@@ -38,12 +38,12 @@ function App() {
         src="https://plausible.io/js/script.js"
       ></script>
       <main className="w-full flex flex-col items-center">
-        <div className="max-w-xl w-full bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8">
-          <h1 className="text-2xl font-bold mb-2 text-slate-900 dark:text-slate-100">PromptAmp</h1>
-          <p className="mb-6 text-slate-700 dark:text-slate-300">Craft prompt-engineering templates with COSTAR or AUTOMAT frameworks.</p>
+        <div className="max-w-xl w-full bg-white dark:bg-zinc-800 rounded-2xl shadow-lg p-8">
+          <h1 className="text-3xl font-bold mb-2 tracking-tight text-material-textLight dark:text-material-textDark font-roboto">PromptAmp</h1>
+          <p className="mb-6 text-zinc-700 dark:text-zinc-200">Craft prompt-engineering templates with COSTAR or AUTOMAT frameworks.</p>
           <FrameworkSelector value={framework} onChange={fw => { setFramework(fw); setPrompt(''); setCopied(false); }} />
           {!framework && (
-            <div className="text-center text-slate-500 py-12" aria-live="polite">
+            <div className="text-center text-zinc-500 py-12" aria-live="polite">
               Select a template to start crafting your prompt
             </div>
           )}
@@ -82,6 +82,7 @@ function App() {
         </div>
       </main>
       <Toast message="Prompt copied ✔️" show={showToast} onClose={() => setShowToast(false)} />
+      <footer className="mt-8 text-xs text-material-outline">&copy; {new Date().getFullYear()} PromptAmp</footer>
     </div>
   );
 }

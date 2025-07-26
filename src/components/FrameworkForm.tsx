@@ -86,10 +86,10 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
           style={{ transitionProperty: 'opacity, transform, max-height', minHeight: i < visibleCount ? 44 : 0 }}
         >
           <label
-            className="block text-slate-800 dark:text-slate-100 text-sm font-medium mb-1"
+            className="block text-[#1C1B1F] dark:text-[#E6E1E5] text-sm font-medium mb-1"
             htmlFor={f.key}
           >
-            {f.label} <span className="text-xs text-slate-500 italic">(ex: {f.example})</span>
+            {f.label} <span className="text-xs text-[#CAC4D0] italic">(ex: {f.example})</span>
           </label>
           <input
             ref={el => {
@@ -100,7 +100,7 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
             type="text"
             autoComplete="off"
             tabIndex={i + 1}
-            className="w-full border border-slate-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-sky-500 bg-warm-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition"
+            className="w-full border border-[#CAC4D0] rounded-md p-3 mt-1 focus:outline-none focus:ring-2 focus:ring-[#6750A4] bg-white dark:bg-[#2A2A3C] text-[#1C1B1F] dark:text-[#E6E1E5] placeholder:text-[#CAC4D0] shadow-sm transition"
             value={values[f.key] || ''}
             onChange={e => handleChange(f.key, e.target.value)}
             aria-label={f.label}
@@ -112,9 +112,9 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
 
       {/* Live prompt preview */}
       <section className="mt-8">
-        <h2 className="text-lg font-semibold mb-2 border-b pb-1">Prompt preview</h2>
+        <h2 className="text-lg font-semibold mb-2 border-b pb-1 text-[#1C1B1F] dark:text-[#E6E1E5]">Prompt preview</h2>
         <div
-          className="font-mono min-h-32 bg-slate-50 dark:bg-slate-800 rounded-lg p-4 border border-warm-200 text-slate-900 dark:text-slate-100 whitespace-pre-line text-sm"
+          className="font-mono min-h-32 bg-white dark:bg-[#2A2A3C] rounded-xl p-4 border border-[#CAC4D0] text-[#1C1B1F] dark:text-[#E6E1E5] whitespace-pre-line text-base shadow-sm"
           tabIndex={0}
           aria-label="Prompt preview"
           style={{ minHeight: 80 }}
@@ -125,7 +125,7 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
 
       <button
         type="submit"
-        className="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-6 rounded-lg shadow transition focus:outline-none focus:ring-2 focus:ring-sky-500 mt-4"
+        className="w-full sm:w-auto bg-[#6750A4] text-white font-semibold py-3 px-6 rounded-md shadow-md transition focus:outline-none focus:ring-2 focus:ring-[#6750A4] hover:bg-purple-700 mt-4"
         style={{ minHeight: 44 }}
       >
         Copy prompt
@@ -134,7 +134,7 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
       <div className="flex justify-end mt-2">
         <button
           type="button"
-          className="text-emerald-600 text-sm underline hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-sky-500 px-2 py-1 rounded"
+          className="text-[#6750A4] text-sm underline hover:text-purple-700 focus:outline-none focus:ring-2 focus:ring-[#6750A4] px-2 py-1 rounded"
           style={{ minHeight: 44 }}
           onClick={handleReset}
         >

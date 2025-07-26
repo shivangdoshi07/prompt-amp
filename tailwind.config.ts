@@ -8,18 +8,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        warm: {
-          50:  '#fdfdfc',
-          100: '#f5f4f2',
-          200: '#ebe9e6',
-          300: '#dcd8d4',
-          400: '#c1beb9',
-          500: '#a6a49f',
-          600: '#8a8985',
-          700: '#6d6c69',
-          800: '#52514f',
-          900: '#3a3a39',
-        },
+        'material-primary': '#6750A4',
+        'material-onPrimary': '#FFFFFF',
+        'material-surfaceLight': '#F8F9FA',
+        'material-surfaceDark': '#2A2A3C',
+        'material-bgLight': '#FFFFFF',
+        'material-bgDark': '#1E1E2F',
+        'material-textLight': '#1C1B1F',
+        'material-textDark': '#E6E1E5',
+        'material-outline': '#CAC4D0',
+      },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
       },
     },
   },
