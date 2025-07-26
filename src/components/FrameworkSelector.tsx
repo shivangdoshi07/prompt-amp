@@ -14,7 +14,7 @@ export default function FrameworkSelector({ value, onChange }: FrameworkSelector
         Choose a prompt framework
       </label>
       <div className="flex flex-row gap-2 w-full" role="radiogroup" aria-labelledby="framework-label">
-        {Object.entries(templates).map(([key, tpl], idx) => {
+        {Object.entries(templates).map(([key, tpl]) => {
           const selected = value === key;
           return (
             <button

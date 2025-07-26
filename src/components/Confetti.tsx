@@ -14,7 +14,7 @@ function randomBetween(a: number, b: number) {
 
 const Confetti: React.FC<ConfettiProps> = ({ trigger, onComplete }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!trigger) return;
@@ -40,11 +40,13 @@ const Confetti: React.FC<ConfettiProps> = ({ trigger, onComplete }) => {
 
     let frame = 0;
     function draw() {
+      if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       confetti.forEach((c) => {
         c.x += Math.cos(c.angle) * c.speed;
         c.y += Math.sin(c.angle) * c.speed + c.gravity * frame;
         c.alpha -= 0.012;
+        if (!ctx) return;
         ctx.globalAlpha = Math.max(c.alpha, 0);
         ctx.beginPath();
         ctx.arc(c.x, c.y, c.r, 0, 2 * Math.PI);
@@ -55,6 +57,7 @@ const Confetti: React.FC<ConfettiProps> = ({ trigger, onComplete }) => {
       if (frame < 70) {
         animationRef.current = requestAnimationFrame(draw);
       } else {
+        if (!canvas || !ctx) return;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (onComplete) onComplete();
       }
