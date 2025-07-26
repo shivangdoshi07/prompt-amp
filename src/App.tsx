@@ -7,6 +7,7 @@ import type { FrameworkKey } from './data/templates';
 
 import IntentPicker from './components/IntentPicker';
 import type { IntentType } from './components/IntentPicker';
+import Confetti from './components/Confetti';
 
 function App() {
   const [intent, setIntent] = useState<IntentType | null>(null);
@@ -42,7 +43,9 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-material-surfaceLight dark:bg-material-surfaceDark text-material-textLight dark:text-material-textDark font-roboto flex flex-col items-center justify-center py-8 px-2 sm:px-0">
+    <div className="min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center py-8 px-2 sm:px-0 font-inter text-material-textLight dark:text-material-textDark">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 -z-10 animate-gradient bg-gradient-to-br from-sky-400 via-fuchsia-400 to-emerald-300 opacity-70 dark:from-indigo-900 dark:via-fuchsia-800 dark:to-emerald-900 blur-2xl" style={{ minHeight: '100vh' }} />
       {/* Plausible analytics script */}
       <script
         defer
@@ -50,9 +53,14 @@ function App() {
         src="https://plausible.io/js/script.js"
       ></script>
       <main className="w-full flex flex-col items-center">
-        <div className="max-w-xl w-full bg-white dark:bg-zinc-800 rounded-2xl shadow-lg p-8">
-          <h1 className="text-3xl font-bold mb-2 tracking-tight text-material-textLight dark:text-material-textDark font-roboto">PromptAmp</h1>
-          <p className="mb-6 text-zinc-700 dark:text-zinc-200">Craft prompt-engineering templates with COSTAR or AUTOMAT frameworks.</p>
+        {/* Confetti burst when prompt is copied */}
+        <Confetti trigger={showToast} onComplete={() => {}} />
+        <div className="max-w-xl w-full bg-white/90 dark:bg-zinc-800/90 rounded-3xl shadow-2xl p-8 backdrop-blur-md">
+          <h1 className="text-3xl font-bold mb-2 tracking-tight text-material-textLight dark:text-material-textDark font-inter flex items-center gap-2">
+            <span role="img" aria-label="spark">✨</span> PromptAmp
+          </h1>
+          <p className="mb-2 text-lg font-inter text-zinc-700 dark:text-zinc-200 text-center">Supercharge your prompts in seconds!</p>
+          <p className="mb-6 text-zinc-500 dark:text-zinc-300 text-center text-sm">Fast, friendly, and fun prompt engineering for everyone.</p>
           {!intent && (
             <IntentPicker onSelect={handleIntentSelect} />
           )}
