@@ -39,13 +39,19 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
     setValues((v) => ({ ...v, [key]: value }));
   };
 
-  const handleFieldBlur = (idx: number, key: string) => {
-    // Always reveal the next field on blur if not already visible
-    if (
-      idx === visibleCount - 1 &&
-      visibleCount < fields.length
-    ) {
+
+  // Reveal next field only on Next button or Enter
+  const handleNext = (idx: number) => {
+    if (idx === visibleCount - 1 && visibleCount < fields.length) {
       setVisibleCount(visibleCount + 1);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, idx: number) => {
+    if (e.key === 'Tab' && !e.shiftKey) {
+      // Only trigger on Tab (not Shift+Tab)
+      e.preventDefault();
+      handleNext(idx);
     }
   };
 
@@ -105,8 +111,21 @@ export default function FrameworkForm({ framework, onPromptReady, onReset }: Fra
             onChange={e => handleChange(f.key, e.target.value)}
             aria-label={f.label}
             style={{ minHeight: 44 }}
-            onBlur={() => handleFieldBlur(i, f.key)}
+            onKeyDown={e => handleKeyDown(e, i)}
           />
+          {i === visibleCount - 1 && visibleCount < fields.length && (
+            <div className="flex items-center mt-2 gap-2">
+              <span className="text-xs text-gray-500 dark:text-gray-400">Press Tab or</span>
+              <button
+                type="button"
+                className="text-xs bg-sky-500 hover:bg-sky-600 text-white font-semibold py-1 px-3 rounded transition focus:outline-none focus:ring-2 focus:ring-sky-500"
+                onClick={() => handleNext(i)}
+                disabled={!values[f.key] || values[f.key].trim() === ''}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       ))}
 

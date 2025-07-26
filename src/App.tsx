@@ -57,7 +57,7 @@ function App() {
         <Confetti trigger={showToast} onComplete={() => {}} />
         <div className="max-w-xl w-full bg-white/90 dark:bg-zinc-800/90 rounded-3xl shadow-2xl p-8 backdrop-blur-md">
           <h1 className="text-3xl font-bold mb-2 tracking-tight text-material-textLight dark:text-material-textDark font-inter flex items-center gap-2">
-            <span role="img" aria-label="spark">✨</span> PromptAmp
+            <span role="img" aria-label="spark">✨</span> Prompt Amplifier
           </h1>
           <p className="mb-2 text-lg font-inter text-zinc-700 dark:text-zinc-200 text-center">Supercharge your prompts in seconds!</p>
           <p className="mb-6 text-zinc-500 dark:text-zinc-300 text-center text-sm">Fast, friendly, and fun prompt engineering for everyone.</p>
@@ -109,7 +109,7 @@ function App() {
         </div>
       </main>
       <Toast message="Prompt copied ✔️" show={showToast} onClose={() => setShowToast(false)} />
-      <footer className="mt-8 text-xs text-material-outline">&copy; {new Date().getFullYear()} PromptAmp</footer>
+      <footer className="mt-8 text-xs text-material-outline">&copy; {new Date().getFullYear()} Prompt Amplifier</footer>
     </div>
   );
 }
